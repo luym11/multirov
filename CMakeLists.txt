@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
 )
+find_package(gazebo REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -110,6 +111,9 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
+# Install models and world descriptions
+
+
 ###########
 ## Build ##
 ###########
@@ -149,6 +153,15 @@ include_directories(
 
 # all install targets should use catkin DESTINATION variables
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
+
+catkin_install_python(PROGRAMS scripts/spawn_model.py
+                      DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+# Install launch files
+install(DIRECTORY launch/
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+        PATTERN "*~" EXCLUDE)
+
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
