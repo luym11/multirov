@@ -70,59 +70,6 @@
       <pose>0 0 0 0 0 0</pose>
     </include>
     
-    <model name='Big box 4'>
-      <pose frame=''>17.6114 52.3253 -3 0 -0 0</pose>
-      <static>0</static>
-      <link name='link'>
-        <inertial>
-          <mass>40</mass>
-          <inertia>
-            <ixx>1</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>1</iyy>
-            <iyz>0</iyz>
-            <izz>1</izz>
-          </inertia>
-        </inertial>
-        <collision name='collision'>
-          <geometry>
-            <box>
-              <size>1.2 0.8 1.25</size>
-            </box>
-          </geometry>
-          <surface>
-            <contact>
-              <ode>
-                <max_vel>0.1</max_vel>
-                <min_depth>0.001</min_depth>
-              </ode>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-          <max_contacts>10</max_contacts>
-        </collision>
-        <visual name='visual'>
-          <geometry>
-            <mesh>
-              <uri>model://big_box4/meshes/big_box.dae</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-        </visual>
-        <self_collide>0</self_collide>
-        <kinematic>0</kinematic>
-      </link>
-    </model>
-    
-    
-
     <state world_name='default'>
       <sim_time>805 632000000</sim_time>
       <real_time>575 977916954</real_time>
@@ -130,40 +77,40 @@
       <iterations>286766</iterations>
       
       <model name='south_wall'>
-        <pose frame=''>10 -5 -20 0 -0 0</pose>
+        <pose frame=''>100 -5 -20 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>10 -5 -20 0 -0 0</pose>
+          <pose frame=''>100 -5 -20 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='south_wall_clone'>
-        <pose frame=''>10 25 -20 0 -0 0</pose>
+        <pose frame=''>100 205 -20 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>10 25 -20 0 -0 0</pose>
+          <pose frame=''>100 205 -20 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='south_wall_clone_0'>
-        <pose frame=''>25 10 -20 0 -0 1.5708</pose>
+        <pose frame=''>205 100 -20 0 -0 1.5708</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>25 10 -20 0 -0 1.5708</pose>
+          <pose frame=''>205 100 -20 0 -0 1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='south_wall_clone_1'>
-        <pose frame=''>-5 10 -20 0 -0 1.5708</pose>
+        <pose frame=''>-5 100 -20 0 -0 1.5708</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>-5 10 -20 0 -0 1.5708</pose>
+          <pose frame=''>-5 100 -20 0 -0 1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -195,7 +142,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>29.9621 0.579662 3</size>
+              <size>209.9621 0.579662 3</size>
             </box>
           </geometry>
           <material>
@@ -221,7 +168,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <box>
-              <size>29.9621 0.579662 3</size>
+              <size>209.9621 0.579662 3</size>
             </box>
           </geometry>
           <surface>
@@ -273,7 +220,7 @@
       </link>
       <static>1</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose frame=''>10 25 -20 0 -0 0</pose>
+      <pose frame=''>100 205 -20 0 -0 0</pose>
     </model>
     <model name='south_wall_clone_0'>
       <link name='link'>
@@ -296,7 +243,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>29.9621 0.57966 3</size>
+              <size>209.9621 0.57966 3</size>
             </box>
           </geometry>
           <material>
@@ -322,7 +269,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <box>
-              <size>29.9621 0.57966 3</size>
+              <size>209.9621 0.57966 3</size>
             </box>
           </geometry>
           <surface>
@@ -374,7 +321,7 @@
       </link>
       <static>1</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose frame=''>25 10 -20 0 -0 1.5708</pose>
+      <pose frame=''>205 100 -20 0 -0 1.5708</pose>
     </model>
     <model name='south_wall_clone_1'>
       <link name='link'>
@@ -397,7 +344,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>29.9621 0.579662 3</size>
+              <size>209.9621 0.579662 3</size>
             </box>
           </geometry>
           <material>
@@ -423,7 +370,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <box>
-              <size>29.9621 0.579662 3</size>
+              <size>209.9621 0.579662 3</size>
             </box>
           </geometry>
           <surface>
@@ -475,7 +422,7 @@
       </link>
       <static>1</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose frame=''>-5 10 -20 0 -0 1.5708</pose>
+      <pose frame=''>-5 100 -20 0 -0 1.5708</pose>
     </model>
     <model name='south_wall'>
       <link name='link'>
@@ -498,7 +445,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>29.9621 0.579662 3</size>
+              <size>209.9621 0.579662 3</size>
             </box>
           </geometry>
           <material>
@@ -524,7 +471,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <box>
-              <size>29.9621 0.579662 3</size>
+              <size>209.9621 0.579662 3</size>
             </box>
           </geometry>
           <surface>
@@ -576,7 +523,7 @@
       </link>
       <static>1</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose frame=''>10 -5 -20 0 -0 0</pose>
+      <pose frame=''>100 -5 -20 0 -0 0</pose>
     </model>
     
     
