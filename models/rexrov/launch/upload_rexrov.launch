@@ -12,7 +12,7 @@
   <arg name="namespace" default="rexrov"/>
   <arg name="world_frame" default="world"/> <!-- This should actually be "/world". See https://github.com/ros-simulation/gazebo_ros_pkgs/pull/324 -->
 
-  <include file="$(find uuv_descriptions)/models/rexrov/launch/upload_rexrov_$(arg mode).launch">
+  <include file="$(find multirov)/models/rexrov/launch/upload_rexrov_$(arg mode).launch">
     <arg name="debug" value="$(arg debug)"/>
     <arg name="x" value="$(arg x)"/>
     <arg name="y" value="$(arg y)"/>
