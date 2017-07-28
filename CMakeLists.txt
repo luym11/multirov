@@ -12,6 +12,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  tf
+  sensor_msgs
 )
 find_package(gazebo REQUIRED)
 
@@ -137,6 +139,9 @@ include_directories(
 
 ## Declare a C++ executable
 # add_executable(multirov_node src/multirov_node.cpp)
+
+add_executable(resource_listener src/resource_listener.cpp)
+target_link_libraries(resource_listener ${catkin_LIBRARIES})
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
