@@ -8,7 +8,7 @@
   <arg name="pitch" default="0.0"/>
   <arg name="yaw" default="0.0"/>
 
-  <arg name="mode" default="default"/>
+  <arg name="mode" default="resource"/>
   <arg name="namespace" default="rexrov"/>
   <arg name="world_frame" default="world"/> <!-- This should actually be "/world". See https://github.com/ros-simulation/gazebo_ros_pkgs/pull/324 -->
 
