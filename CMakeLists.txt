@@ -160,6 +160,7 @@ target_link_libraries(resource_listener ${catkin_LIBRARIES})
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
 
 catkin_install_python(PROGRAMS scripts/spawn_model.py
+	                       scripts/move_to_resource.py
                       DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 # Install launch files

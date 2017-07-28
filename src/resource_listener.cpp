@@ -16,6 +16,7 @@ int main(int argc, char** argv){
   while (node.ok()){
     tf::StampedTransform transform;
     try{ 
+      listener.waitForTransform("/world", "/rexrov0/base_stabilized", ros::Time(0), ros::Duration(3.0) );
       listener.lookupTransform("/world", "/rexrov0/base_stabilized", ros::Time(0), transform);
     }
     catch (tf::TransformException &ex) {
