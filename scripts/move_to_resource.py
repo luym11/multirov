@@ -21,7 +21,34 @@ from uuv_control_msgs.msg import Waypoint
 from std_msgs.msg import String, Time
 from geometry_msgs.msg import Point
 
+def receive_resource_location_callback(data):
+    sender(data)
+
+def sender(p):
+
+    try:
+        rospy.wait_for_service(rospy.get_namespace()+'go_to', timeout=2)
+    except rospy.ROSException:
+        rospy.ROSException('Service not available! Closing node...')
+
+    try:
+        init_wp = rospy.ServiceProxy(
+            rospy.get_namespace()+'/go_to',
+            GoTo )
+
+    except rospy.ServiceException, e:
+        rospy.ROSException('Service call failed, error=' + e)
+
+    
+    success = init_wp(Waypoint(p, 0.4, 0, False))
+
+    if success:
+        print 'Waypoint command successfully sent'
+    else:
+        print 'Failed'
+
 if __name__ == '__main__':
+
     print 'Send a waypoint, namespace=', rospy.get_namespace()
     rospy.init_node('move_to_resource.py')
 
@@ -45,23 +72,6 @@ if __name__ == '__main__':
             start_now = True
     else:
         start_now = True
-
-    try:
-        rospy.wait_for_service(rospy.get_namespace()+'go_to', timeout=2)
-    except rospy.ROSException:
-        rospy.ROSException('Service not available! Closing node...')
-
-    try:
-        init_wp = rospy.ServiceProxy(
-            rospy.get_namespace()+'/go_to',
-            GoTo )
-
-    except rospy.ServiceException, e:
-        rospy.ROSException('Service call failed, error=' + e)
-
-    success = init_wp(Waypoint(Point(100, 100, -30), 0.4, 0, False))
-
-    if success:
-        print 'Waypoint command successfully sent'
-    else:
-        print 'Failed'
+    
+    rospy.Subscriber("/resource_location", Point, receive_resource_location_callback)
+    rospy.spin()
