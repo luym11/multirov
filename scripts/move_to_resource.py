@@ -39,7 +39,7 @@ def sender(p):
     except rospy.ServiceException, e:
         rospy.ROSException('Service call failed, error=' + e)
 
-    
+    p.z=-20;# don't bump into boxbox
     success = init_wp(Waypoint(p, 0.4, 0, False))
 
     if success:
