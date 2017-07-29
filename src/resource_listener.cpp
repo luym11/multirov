@@ -17,9 +17,10 @@ int main(int argc, char** argv){
 
   ros::NodeHandle node;
 
-  //ros::Publisher turtle_vel =
- //   node.advertise<geometry_msgs::Twist>("turtle2/cmd_vel", 10);
-
+  //std::string ns; 
+  //if(node.getParam("uuv_ns", ns)){
+  //  ROS_INFO("Get namespace");
+  //} 
   ros::Publisher resource_location_publ = node.advertise<geometry_msgs::Point>("/resource_location", 10); 
   tf::TransformListener listener;
 

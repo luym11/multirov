@@ -11,6 +11,10 @@
             start_time: $(arg start_time)
           </rosparam>
     </node>
-  </group>
-
+ </group>
+ <node pkg="multirov"
+          type="resource_listener"
+          name="resource_listener"
+          output="screen">
+ </node>
 </launch>
