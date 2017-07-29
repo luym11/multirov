@@ -26,6 +26,10 @@
       <param name="robot_description" value="/$(arg namespace)/robot_description" />
       <param name="publish_frequency" value="5" />
     </node>
+
+    <node name="agent_listener" pkg="multirov" type="agent_listener" output="screen" args="/$(arg namespace)">
+    </node>
+
   </group>
 
   <include file="$(find uuv_descriptions)/models/common/launch/message_to_tf.launch">
