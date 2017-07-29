@@ -143,6 +143,9 @@ include_directories(
 add_executable(resource_listener src/resource_listener.cpp)
 target_link_libraries(resource_listener ${catkin_LIBRARIES})
 
+add_executable(resource_heatmap src/resource_heatmap.cpp)
+target_link_libraries(resource_heatmap ${catkin_LIBRARIES})
+
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(multirov_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
