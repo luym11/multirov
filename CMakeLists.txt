@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(multirov)
 
+## Use C++11
+add_definitions(--std=c++11)
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -107,9 +110,9 @@ find_package(gazebo REQUIRED)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
+  INCLUDE_DIRS include
 #  LIBRARIES multirov
-#  CATKIN_DEPENDS geometry_msgs mavros mavros_msgs message_generation roscpp rospy std_msgs
+  CATKIN_DEPENDS geometry_msgs mavros mavros_msgs message_generation roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
 
@@ -124,6 +127,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -143,8 +147,8 @@ include_directories(
 add_executable(resource_listener src/resource_listener.cpp)
 target_link_libraries(resource_listener ${catkin_LIBRARIES})
 
-add_executable(resource_heatmap src/resource_heatmap.cpp)
-target_link_libraries(resource_heatmap ${catkin_LIBRARIES})
+add_executable(resource_heatmap_node src/resource_heatmap_node.cpp src/resource_heatmap.cpp)
+target_link_libraries(resource_heatmap_node ${catkin_LIBRARIES})
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above

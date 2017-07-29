@@ -1,24 +1,23 @@
 #include <ros/ros.h>
-#include <iostream>
-#include <Eigen/Dense>
-#include <geometry_msgs/Point.h>
+#include "multirov/resource_heatmap.hpp"
 
-geometry_msgs::Point resource_center; 
+resource_heatmap::resource_heatmap(ros::NodeHandle& nodeHandle):nodeHandle_(nodeHandle){
+	heatmap = Eigen::MatrixXf::Zero(20, 20);
+	resource_location_subs = nodeHandle.subscribe( "/resource_location", 5, &resource_heatmap::resource_location_Callback, this); 
+}
 
-void resource_location_Callback(const geometry_msgs::Point::ConstPtr& p){
+//void: resource_heatmap::heatmap_update(){
+//	heatmap()
+//}
+
+void resource_heatmap::resource_location_Callback(const geometry_msgs::Point::ConstPtr& p){
 	resource_center.x = p->x;
 	resource_center.y = p->y;
 	resource_center.z = p->z; 
+	//heatmap_update(); 
 	ROS_INFO("center x is %f", resource_center.x); 
 }
 
-int main(int argc, char** argv)
-{
-  ros::init(argc, argv, "resource_heatmap");
-  ros::NodeHandle nh;
-  ros::Subscriber resource_location_subs;
-  resource_location_subs = nh.subscribe( "resource_location", 10, resource_location_Callback); 
-  
-  ros::spin();
-  return 0;
-}
+ 
+
+ 
