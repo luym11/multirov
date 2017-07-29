@@ -2,6 +2,15 @@
 #include <tf/transform_listener.h>
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Point.h>
+#include <math.h>
+
+bool eequal(geometry_msgs::Point a, geometry_msgs::Point b){
+  if((int)round(a.x*10) == (int)round(b.x*10) & (int)round(a.y*10) == (int)round(b.y*10) & (int)round(a.z*10) == (int)round(b.z*10)){
+    return true; 
+  }else{
+    return false;
+  }
+}
 
 int main(int argc, char** argv){
   ros::init(argc, argv, "my_tf_listener");
@@ -15,6 +24,10 @@ int main(int argc, char** argv){
   tf::TransformListener listener;
 
   ros::Rate rate(10.0);
+  geometry_msgs::Point resource_location_point_previousloop;
+  resource_location_point_previousloop.x = -1; 
+  resource_location_point_previousloop.y = -1;
+  resource_location_point_previousloop.z = 10;
   while (node.ok()){
     tf::StampedTransform transform;
     try{ 
@@ -39,8 +52,11 @@ int main(int argc, char** argv){
     resource_location_point.y = transform.getOrigin().y(); 
     resource_location_point.z = transform.getOrigin().z(); 
     //turtle_vel.publish(vel_msg);
-    resource_location_publ.publish(resource_location_point); 
-    ROS_INFO("x = %f y = %f z = %f", resource_location_point.x, resource_location_point.y, resource_location_point.z); 
+    if(not eequal(resource_location_point_previousloop, resource_location_point)){
+      resource_location_publ.publish(resource_location_point); 
+      ROS_INFO("x = %f y = %f z = %f", resource_location_point.x, resource_location_point.y, resource_location_point.z); 
+      resource_location_point_previousloop = resource_location_point; 
+    }
     rate.sleep();
   }
   return 0;
