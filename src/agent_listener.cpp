@@ -23,10 +23,17 @@ int main(int argc, char** argv){
   }else{
     ns = argv[1];
   }
+
+int num; 
+char* cstr = &ns[0u];
+sscanf(cstr, "/rexrov%d", &num); // must be char[], not string
+printf("%d\n", num);
+
   std::string pre(ns); 
+
   ns.append("/base_stabilized");
   pre.append("/agent_location");
-
+  
   //if(node.getParam("namespace", ns)){
   //  ROS_INFO("Get namespace");
   //} else{
@@ -55,18 +62,11 @@ int main(int argc, char** argv){
       ros::Duration(1.0).sleep();
       continue;
     }
-/*
-    geometry_msgs::Twist vel_msg;
-    vel_msg.angular.z = 4.0 * atan2(transform.getOrigin().y(),
-                                    transform.getOrigin().x());
-    vel_msg.linear.x = 0.5 * sqrt(pow(transform.getOrigin().x(), 2) +
-                                  pow(transform.getOrigin().y(), 2));
-*/
 
     geometry_msgs::Point agent_location_point; 
     agent_location_point.x = transform.getOrigin().x(); 
     agent_location_point.y = transform.getOrigin().y(); 
-    agent_location_point.z = transform.getOrigin().z(); 
+    agent_location_point.z = (float)num; /////////////////////////////////////// Mark which rov gives the info, as z is not used anyway 
     //turtle_vel.publish(vel_msg);
     if(not eequal(agent_location_point_previousloop, agent_location_point)){
       agent_location_publ.publish(agent_location_point); 

@@ -39,8 +39,8 @@ int main(int argc, char** argv){
 	printf("\n");
 	c.agents.push_back(vec); // [1,3] again
 	c.set_coveragemap(); 
-	for(int i = c.col - 1; i >= 0; i--){
-		for(int j = 0; j <= c.row - 1; j++){
+	for(int j = c.row - 1; j >= 0; j--){
+		for(int i = 0; i <= c.col - 1; i++){
 			printf("%f ", c.covermap2(i, j)); 
 		} 
 		printf("\n");

@@ -1,14 +1,10 @@
 <launch>
 
-  <arg name="mode" default="default"/>
-  <arg name="namespace" default="rexrov"/>
-  <arg name="world_frame" default="world"/> <!-- This should actually be "/world". See https://github.com/ros-simulation/gazebo_ros_pkgs/pull/324 -->
+<arg name="agents" default="/rexrov1" />
 
-  <group ns="$(arg namespace)">
-    
-    <node name="coveragemap_node" pkg="multirov" type="coveragemap_node" output="screen" args="/$(arg namespace)">
-    </node>
+<node name="coveragemap_node" pkg="multirov" type="coveragemap_node" output="screen" args="$(arg agents)">
+	<rosparam command="load" file="$(find multirov)/config/rovs.yaml" />
+</node>
 
-  </group>
 
 </launch>
