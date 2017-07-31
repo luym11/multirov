@@ -153,6 +153,8 @@ target_link_libraries(agent_listener ${catkin_LIBRARIES})
 add_executable(resource_heatmap_node src/resource_heatmap_node.cpp src/resource_heatmap.cpp)
 target_link_libraries(resource_heatmap_node ${catkin_LIBRARIES})
 
+add_executable(coveragemap_node src/coveragemap_node.cpp src/coveragemap.cpp)
+target_link_libraries(coveragemap_node ${catkin_LIBRARIES})
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(multirov_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})

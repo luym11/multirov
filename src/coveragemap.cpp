@@ -38,7 +38,7 @@ void coveragemap::place_agents(std::vector< std::vector <int> > a){
 	for(int i = 0 ; i < a.size(); i++){
 		nearby_agents = count_nearby_agents(a[i][0], a[i][1]); 
 		if( nearby_agents == 0 ){
-			// covermap2(a[i][0], a[i][1]) = 2;
+			// covermap2(a[i][0], a[i][1]) = 2; // just keep the value as 2
 		}else{
 			covermap2(a[i][0], a[i][1]) = float(2) / float(nearby_agents); 
 		}
@@ -80,6 +80,8 @@ int coveragemap::count_nearby_agents(int x, int y){
 			}
 		}
 	}
+
+	// coner cases... DAMN IT
 	if(x==0 & y!=0 & x!= col-1 & y!=row-1){
 		for(int i = 0; i < 2; i++){
 			for(int j = -1; j < 2; j++){

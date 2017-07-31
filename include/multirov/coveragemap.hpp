@@ -1,9 +1,5 @@
-//#include <ros/ros.h>
 #include <iostream>
 #include <Eigen/Dense>
-//#include <geometry_msgs/Point.h>
-//#include <tf/transform_listener.h>
-//#include <geometry_msgs/Twist.h>
 #include <math.h>
 #include <vector>
 #include <stdio.h>

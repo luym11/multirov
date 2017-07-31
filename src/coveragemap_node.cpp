@@ -1,8 +1,18 @@
+#include <ros/ros.h>
+#include <geometry_msgs/Point.h>
+#include <tf/transform_listener.h>
+#include <geometry_msgs/Twist.h>
 #include "multirov/coveragemap.hpp"
 
-int main(int argc, char** argv){
-	coveragemap c; 
-	std::vector<int> vec(2,1); 
+#define HEIGHT 20
+#define LENGTH 20
+
+int main(int argc, char** argv)
+{
+  ros::init(argc, argv, "coveragemap_node");
+  ros::NodeHandle nh;
+  coveragemap c; 
+  std::vector<int> vec(2,1); 
 	for (int i = 0 ; i < vec.size(); i++){
 		printf("%d ", vec[i]); 
 	}
@@ -45,5 +55,6 @@ int main(int argc, char** argv){
 		} 
 		printf("\n");
 	}
-	return 0; 
+  ros::spin();
+  return 0;
 }
