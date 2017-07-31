@@ -4,8 +4,8 @@
 #include <vector>
 #include <stdio.h>
 
-#define HEIGHT 20
-#define LENGTH 20
+#define HEIGHT 200
+#define LENGTH 200
 
 // define agent coveragemap class here
 class coveragemap{

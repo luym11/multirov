@@ -4,57 +4,51 @@
 #include <geometry_msgs/Twist.h>
 #include "multirov/coveragemap.hpp"
 
-#define HEIGHT 20
-#define LENGTH 20
+#define HEIGHT 200
+#define LENGTH 200
 
-int main(int argc, char** argv)
-{
-  ros::init(argc, argv, "coveragemap_node");
-  ros::NodeHandle nh;
-  coveragemap c; 
-  std::vector<int> vec(2,1); 
-	for (int i = 0 ; i < vec.size(); i++){
-		printf("%d ", vec[i]); 
-	}
-	printf("\n");
-	c.agents.push_back(vec); // [1,1]
-	vec[1] = 2;  
-	for (int i = 0 ; i < vec.size(); i++){
-		printf("%d ", vec[i]); 
-	}
-	printf("\n");
-	c.agents.push_back(vec); // [1,2]
-	vec[0] = 6; vec[1] = 6; 
-	for (int i = 0 ; i < vec.size(); i++){
-		printf("%d ", vec[i]); 
-	}
-	printf("\n");
-	c.agents.push_back(vec); // [6,6]
-	vec[0] = 2; vec[1] = 2; 
-	for (int i = 0 ; i < vec.size(); i++){
-		printf("%d ", vec[i]); 
-	}
-	printf("\n");
-	c.agents.push_back(vec); // [2,2]
-	vec[0] = 1; vec[1] = 3; 
-	for (int i = 0 ; i < vec.size(); i++){
-		printf("%d ", vec[i]); 
-	}
-	printf("\n");
-	c.agents.push_back(vec); // [1,3]
-	for (int i = 0 ; i < vec.size(); i++){
-		printf("%d ", vec[i]); 
-	}
-	printf("\n");
-	printf("\n");
-	c.agents.push_back(vec); // [1,3] again
+// init a covermap with zeros
+coveragemap c; 
+
+void agent_location_Callback(const geometry_msgs::Point::ConstPtr& p){
+	std::vector<int> vec(2,1); 
+	vec[0] = (int)round(p->x); vec[1] = (int)round(p->y); 
+	c.agents[0][0] = vec[0]; c.agents[0][1] = vec[1]; 
+
+	std::cout << c.agents[0][0] << " " << c.agents[0][1] << " " << c.agents.size() << " " << c.col << std::endl; 
+
 	c.set_coveragemap(); 
-	for(int i = c.col - 1; i >= 0; i--){
-		for(int j = 0; j <= c.row - 1; j++){
-			printf("%f ", c.covermap2(i, j)); 
+	for(int i = 5; i >= -5; i--){
+		for(int j = -5; j <= 5; j++){
+			if(vec[0]+i >= 0 &  vec[1]+j >= 0 & vec[0]+i < LENGTH & vec[1]+j < HEIGHT){
+				printf("%f ", c.covermap2(vec[0]+i, vec[1]+j)); 
+			}
 		} 
 		printf("\n");
 	}
-  ros::spin();
-  return 0;
+}
+
+int main(int argc, char** argv)
+{
+	ros::init(argc, argv, "coveragemap_node");
+	ros::NodeHandle nh;
+
+	std::string ns; 
+		if(argc != 2){
+	ROS_WARN("Warning! Didn't pass correct namespace format");
+	}else{
+		ns = argv[1];
+	}
+	ns.append("/agent_location"); 
+
+	
+	// just init agent list, take a space
+	std::vector<int> vec1(2,1); 
+	c.agents.push_back(vec1); 
+
+	// init a subs for agent locations
+	ros::Subscriber agent_location_subs = nh.subscribe( ns, 10, agent_location_Callback); 
+
+	ros::spin();
+	return 0;
 }

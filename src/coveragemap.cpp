@@ -1,6 +1,6 @@
 #include "multirov/coveragemap.hpp"
-#define HEIGHT 20
-#define LENGTH 20
+#define HEIGHT 200
+#define LENGTH 200
 
 // coveragemap::coveragemap(ros::NodeHandle& nodeHandle):nodeHandle_(nodeHandle){
 coveragemap::coveragemap( ){
@@ -44,12 +44,15 @@ void coveragemap::place_agents(std::vector< std::vector <int> > a){
 		}
 	}
 
+	// print all the map: too big to show
+	/*
 	for(int i = col - 1; i >= 0; i--){
 		for(int j = 0; j <= row - 1; j++){
 			printf("%f ", covermap2(i, j)); 
 		} 
 		printf("\n");
 	}
+	*/	
 	printf("\n");printf("\n");printf("\n");printf("\n");printf("\n");
 }
 
@@ -58,7 +61,7 @@ void coveragemap::calculate_coveragemap(){
 		for(int j = 0; j < row; j++){
 			if(eequal( covermap2(i, j), 0) ){ // Avoid re-assign values to agents' stands
 				int nearby_agents = count_nearby_agents(i, j); 
-				printf("nearby agents for sector %d, %d: %d\n", i, j, nearby_agents); 
+				// printf("nearby agents for sector %d, %d: %d\n", i, j, nearby_agents); 
 				if( nearby_agents == 0 ){
 					covermap2(i, j) = 0;
 				}else{
