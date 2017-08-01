@@ -1,3 +1,5 @@
+#ifndef COVERAGEMAP__HPP
+#define COVERAGEMAP__HPP
 #include <iostream>
 #include <Eigen/Dense>
 #include <math.h>
@@ -60,5 +62,4 @@ private:
 	// step 2's sub function: count how many agents are within 1 hop for one sector
 	int count_nearby_agents(int x, int y); 
 };
-
-	
+#endif

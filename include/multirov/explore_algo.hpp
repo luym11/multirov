@@ -1,3 +1,5 @@
+#ifndef EXPLORE_ALGO
+#define EXPLORE_ALGO
 #include <iostream>
 #include <Eigen/Dense>
 #include <math.h>
@@ -31,3 +33,5 @@ private:
 	Eigen::MatrixXi nearby_heatmap; 
 	std::vector< std::vector<int> > nearby_agent_locations_local; 
 };
+
+#endif

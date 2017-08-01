@@ -7,5 +7,5 @@ CXXFLAGS=-I$(DEPS)
 test_coveragemap: ./test/test_coveragemap.o ./src/coveragemap.o
 	${CXX} -o $@ $^ ${CXXFLAGS} -lboost_system
 
-test_explore_algo: ./src/coveragemap.o ./test/test_explore_algo.o ./src/explore_algo.o
+test_explore_algo: ./src/coveragemap.o ./src/explore_algo.o ./test/test_explore_algo.o 
 	${CXX} -o $@ $^ ${CXXFLAGS} -lboost_system
