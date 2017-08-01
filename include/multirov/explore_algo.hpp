@@ -23,6 +23,11 @@ public:
 	// calculate nearby_covermap
 	void calculate_covermap(); 
 
+	// find different scores while moving one step
+	void move_to_see_the_scores();
+
+	// compute the score given maps and agent location
+	float compute_score(int x, int y, Eigen::MatrixXi h); 
 
 	std::vector<int> my_location; 
 	std::vector<int> my_location_local; 
@@ -30,6 +35,13 @@ public:
 	std::vector< std::vector<int> > agent_locations_local; 
 	Eigen::MatrixXi heatmap; 
 	
+	std::vector<float> scores_at_different_directions; 
+	/*
+	2 5 8
+	1 4 7 
+	0 3 6
+	*/
+
 private:
 	Eigen::MatrixXf nearby_covermap; 
 	Eigen::MatrixXi nearby_heatmap; 

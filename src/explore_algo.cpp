@@ -15,6 +15,7 @@ void explore_algo::remap_heatmap(){
 		}
 	}
 	// nearby_heatmap = heatmap.block(my_location[0] - 2, my_location[1] - 2, 5, 5); // farther than 2 to the edges
+	printf("NEARBY HEATMAP\n");
 	for(int j = 2; j >= -2; j--){
 		for(int i = -2; i <= 2; i++){
 			printf("%d ", nearby_heatmap(i+2, j+2)); 
@@ -63,6 +64,7 @@ void explore_algo::calculate_covermap(){
 			}
 		}
 	}
+	printf("NEARBY COVERMAP\n");
 	for(int j = 2; j >= -2; j--){
 		for(int i = -2; i <= 2; i++){
 			printf("%f ", nearby_covermap(my_location_local[0]+i, my_location_local[1]+j)); 
@@ -70,3 +72,43 @@ void explore_algo::calculate_covermap(){
 		printf("\n");
 	}
 }  
+
+void explore_algo::move_to_see_the_scores(){
+	for(int i = -1; i <= 1; i++){
+		for(int j = -1; j <= 1; j++){
+			if(my_location[0] + i >= 0 & my_location[0] + i < 200 &  my_location[1] + j >= 0 &  my_location[1] + j < 200 ){
+				scores_at_different_directions.push_back( compute_score(my_location_local[0] + i, my_location_local[1] + j, nearby_heatmap) ); 
+			}else{
+				scores_at_different_directions.push_back(-1000); 
+			}
+			
+		}
+	}
+} 
+
+float explore_algo::compute_score(int x, int y, Eigen::MatrixXi h){
+	coveragemap cm(5, 5); 
+	cm.agents = nearby_agent_locations_local; 
+	std::vector<int> me; me.push_back(x); me.push_back(y); 
+	cm.agents.insert(cm.agents.begin(), me); 
+	// std::cout << cm.agents.size() << std::endl;
+	cm.set_coveragemap();
+
+	Eigen::MatrixXf _nearby_covermap = Eigen::MatrixXf::Zero(5, 5); 
+	for(int i = -2; i <= 2; i++){
+		for(int j = -2; j <= 2; j++){
+			if(my_location[0] + i >= 0 & my_location[0] + i < 200 &  my_location[1] + j >= 0 &  my_location[1] + j < 200 ){
+				_nearby_covermap(i+2, j+2) = cm.covermap2(my_location_local[0] + i, my_location_local[1] + j); 
+			}
+		}
+	}
+	printf("DIFFERENT POSITION COVERMAPS for %d %d\n", x, y);
+	for(int j = 2; j >= -2; j--){
+		for(int i = -2; i <= 2; i++){
+			printf("%f ", _nearby_covermap(my_location_local[0]+i, my_location_local[1]+j)); 
+		} 
+		printf("\n");
+	}
+	Eigen::MatrixXf h_f = h.cast<float>();
+	return (_nearby_covermap.cwiseProduct(h_f)).sum(); 
+}
