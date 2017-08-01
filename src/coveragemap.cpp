@@ -38,7 +38,7 @@ void coveragemap::place_agents(std::vector< std::vector <int> > a){
 		if( nearby_agents == 0 ){
 			// covermap2(a[i][0], a[i][1]) = 2; // just keep the value as 2
 		}else{
-			covermap2(a[i][0], a[i][1]) = float(2) / float(nearby_agents); 
+			covermap2(a[i][0], a[i][1]) = float(2) / (float(nearby_agents)+1); 
 		}
 	}
 
