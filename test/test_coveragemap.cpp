@@ -1,7 +1,7 @@
 #include "multirov/coveragemap.hpp"
 
 int main(int argc, char** argv){
-	coveragemap c; 
+	coveragemap c(20, 20); 
 	std::vector<int> vec(2,1); 
 	for (int i = 0 ; i < vec.size(); i++){
 		printf("%d ", vec[i]); 
