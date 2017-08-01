@@ -23,11 +23,13 @@ public:
 	// calculate nearby_covermap
 	void calculate_covermap(); 
 
+
 	std::vector<int> my_location; 
 	std::vector<int> my_location_local; 
 	std::vector< std::vector<int> > agent_locations; 
+	std::vector< std::vector<int> > agent_locations_local; 
 	Eigen::MatrixXi heatmap; 
-
+	
 private:
 	Eigen::MatrixXf nearby_covermap; 
 	Eigen::MatrixXi nearby_heatmap; 
