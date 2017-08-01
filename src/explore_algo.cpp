@@ -112,3 +112,28 @@ float explore_algo::compute_score(int x, int y, Eigen::MatrixXi h){
 	Eigen::MatrixXf h_f = h.cast<float>();
 	return (_nearby_covermap.cwiseProduct(h_f)).sum(); 
 }
+
+void explore_algo::find_margin_utilities(){
+	for(int i = 0; i < scores_at_different_directions.size(); i++){
+		margin_utilities_at_different_directions.push_back(scores_at_different_directions[i] - scores_at_different_directions[4]); 
+	}
+}
+
+int explore_algo::find_new_direction(){
+	float Z; 
+	for(int i = 0; i < margin_utilities_at_different_directions.size(); i++){
+		Z = Z + exp(margin_utilities_at_different_directions[i]); 
+	}
+	std::vector<float> p; 
+	for(int i = 0; i < margin_utilities_at_different_directions.size(); i++){
+		p.push_back(exp(margin_utilities_at_different_directions[i])/Z ); 
+	}
+	std::srand((unsigned)time(NULL)); 
+	float random_num = std::rand()/double(RAND_MAX); 
+	int d; 
+	while(random_num >= 0){
+		random_num -= p[d]; 
+		d++;
+	}
+	return d; 
+}

@@ -15,9 +15,14 @@ int main(int argc, char** argv){
 	ex.remap_coordinates(); 
 	ex.calculate_covermap(); 
 	ex.move_to_see_the_scores();
+	
 	for(int i = 0 ; i < ex.scores_at_different_directions.size(); i++){
 		std::cout<< ex.scores_at_different_directions[i] << " "; 
 	}
 	std::cout << std::endl;
+
+	ex.find_margin_utilities();
+	printf("%d\n", ex.find_new_direction());
+
 	return 0; 
 }

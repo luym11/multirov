@@ -5,6 +5,8 @@
 #include <math.h>
 #include <vector>
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "multirov/coveragemap.hpp"
 
 class explore_algo{
@@ -29,6 +31,12 @@ public:
 	// compute the score given maps and agent location
 	float compute_score(int x, int y, Eigen::MatrixXi h); 
 
+	// find margin utility for each direction
+	void find_margin_utilities(); 
+
+	// find new direction
+	int find_new_direction(); 
+
 	std::vector<int> my_location; 
 	std::vector<int> my_location_local; 
 	std::vector< std::vector<int> > agent_locations; 
@@ -36,6 +44,7 @@ public:
 	Eigen::MatrixXi heatmap; 
 	
 	std::vector<float> scores_at_different_directions; 
+	std::vector<float> margin_utilities_at_different_directions; 
 	/*
 	2 5 8
 	1 4 7 
