@@ -1,9 +1,8 @@
 #include "multirov/explore_algo.hpp"
-#include "multirov/coveragemap.hpp"
 
 int main(int argc, char** argv){
 	explore_algo ex; 
-	
+
 	ex.heatmap = Eigen::MatrixXi::Zero(200, 200); 
 	ex.heatmap(3, 3) = 10; 
 	ex.my_location.push_back(3); ex.my_location.push_back(3); 
