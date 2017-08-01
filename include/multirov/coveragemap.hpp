@@ -4,14 +4,12 @@
 #include <vector>
 #include <stdio.h>
 
-#define HEIGHT 200
-#define LENGTH 200
 
 // define agent coveragemap class here
 class coveragemap{
 public:
 	// coveragemap(ros::NodeHandle& nodeHandle);
-	coveragemap();
+	coveragemap(int LENGTH, int HEIGHT );
 
 
 	// properties of the covermap

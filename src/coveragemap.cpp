@@ -1,19 +1,17 @@
 #include "multirov/coveragemap.hpp"
-#define HEIGHT 200
-#define LENGTH 200
 
 // coveragemap::coveragemap(ros::NodeHandle& nodeHandle):nodeHandle_(nodeHandle){
-coveragemap::coveragemap( ){
+coveragemap::coveragemap(int LENGTH, int HEIGHT ){
 	covermap = Eigen::MatrixXf::Zero(LENGTH, HEIGHT);
 	col = covermap.cols();
 	row = covermap.rows();
-	covermap2 = Eigen::MatrixXf::Zero(LENGTH, HEIGHT);
-	agent_number_map = Eigen::MatrixXi::Zero(LENGTH, HEIGHT);
+	covermap2 = Eigen::MatrixXf::Zero(col, row);
+	agent_number_map = Eigen::MatrixXi::Zero(col, row);
 }
 
 void coveragemap::set_coveragemap(){
 	// step0, init the covermap2
-	covermap2 = Eigen::MatrixXf::Zero(LENGTH, HEIGHT);
+	covermap2 = Eigen::MatrixXf::Zero(col, row);
 
 	// step1, place the agent
 	place_agents(agents); 
@@ -23,7 +21,7 @@ void coveragemap::set_coveragemap(){
 }
 
 void coveragemap::place_agents(std::vector< std::vector <int> > a){
-	agent_number_map = Eigen::MatrixXi::Zero(LENGTH, HEIGHT);
+	agent_number_map = Eigen::MatrixXi::Zero(col, row);
 	for(int i = 0; i < a.size(); i++){
 		if( eequal(covermap2( a[i][0], a[i][1] ) , 0) ){
 			agent_number_map( a[i][0], a[i][1] )++;

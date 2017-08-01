@@ -6,11 +6,9 @@
 
 #include "multirov/coveragemap.hpp"
 
-#define HEIGHT 200
-#define LENGTH 200
 
 // init a covermap with zeros
-coveragemap c;
+coveragemap c(200, 200);
 
 void agent_location_Callback(const geometry_msgs::Point::ConstPtr& p){
 	std::vector<int> vec(2,1); 
@@ -21,9 +19,9 @@ void agent_location_Callback(const geometry_msgs::Point::ConstPtr& p){
 	std::cout << c.agents[rovnumMinus1][0] << " " << c.agents[rovnumMinus1][1] << " " << c.agents.size() << std::endl; 
 
 	c.set_coveragemap(); 
-	for(int j = 5; j >= -5; j--){
-		for(int i = -5; i <= 5; i++){
-			if(vec[0]+i >= 0 &  vec[1]+j >= 0 & vec[0]+i < LENGTH & vec[1]+j < HEIGHT){
+	for(int j = 2; j >= -2; j--){
+		for(int i = -2; i <= 2; i++){
+			if(vec[0]+i >= 0 &  vec[1]+j >= 0 & vec[0]+i < c.col & vec[1]+j < c.row){
 				printf("%f ", c.covermap2(vec[0]+i, vec[1]+j)); 
 			}
 		} 
