@@ -2,7 +2,7 @@
 
 
 explore_algo::explore_algo(){
-	my_location_local.push_back(2); my_location_local.push_back(2); 
+	my_location_local.push_back(2); my_location_local.push_back(2); // Always (2,2): don't change this unless you know what you're doing
 }
 
 void explore_algo::remap_heatmap(){
@@ -74,6 +74,7 @@ void explore_algo::calculate_covermap(){
 }  
 
 void explore_algo::move_to_see_the_scores(){
+	scores_at_different_directions.clear();
 	for(int i = -1; i <= 1; i++){
 		for(int j = -1; j <= 1; j++){
 			if(my_location[0] + i >= 0 & my_location[0] + i < 200 &  my_location[1] + j >= 0 &  my_location[1] + j < 200 ){
@@ -114,6 +115,7 @@ float explore_algo::compute_score(int x, int y, Eigen::MatrixXi h){
 }
 
 void explore_algo::find_margin_utilities(){
+	margin_utilities_at_different_directions.clear();
 	for(int i = 0; i < scores_at_different_directions.size(); i++){
 		margin_utilities_at_different_directions.push_back(scores_at_different_directions[i] - scores_at_different_directions[4]); 
 	}

@@ -22,7 +22,8 @@ int main(int argc, char** argv){
 	std::cout << std::endl;
 
 	ex.find_margin_utilities();
-	printf("%d\n", ex.find_new_direction());
+	int d = ex.find_new_direction();
+	printf("%d\n", d);
 
 	return 0; 
 }
