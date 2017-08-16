@@ -14,10 +14,26 @@
 class explore_algo_node{
 public: 
 
+	ros::NodeHandle nodeHandle_;
+	ros::NodeHandle *nh_1; 
+	// constructor
+	explore_algo_node(ros::NodeHandle& nodeHandle); 
 
+	explore_algo ex; 
+	coveragemap c; 
+	int done_flag;
+	std_msgs::Int8 d; 
+
+	Eigen::MatrixXi heatmap_update(int x, int y); 
+
+	void resource_location_Callback(const geometry_msgs::Point::ConstPtr& p); 
+
+	void agent_location_Callback(const geometry_msgs::Point::ConstPtr& p); 
+
+	// subs and publs
+	ros::Publisher go_direction_publ;
+	ros::Subscriber resource_location_subs;
+	ros::Subscriber my_location_subs;
 };
-
-
-
 
 #endif

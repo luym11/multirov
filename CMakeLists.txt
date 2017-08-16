@@ -156,8 +156,8 @@ target_link_libraries(resource_heatmap_node ${catkin_LIBRARIES})
 add_executable(coveragemap_node src/coveragemap_node.cpp src/coveragemap.cpp)
 target_link_libraries(coveragemap_node ${catkin_LIBRARIES})
 
-add_executable(explore_algo_node src/coveragemap.cpp src/explore_algo_node.cpp src/explore_algo.cpp)
-target_link_libraries(explore_algo_node ${catkin_LIBRARIES})
+add_executable(explore_algo_node_main src/coveragemap.cpp src/explore_algo_node.cpp src/explore_algo.cpp src/explore_algo_node_main.cpp)
+target_link_libraries(explore_algo_node_main ${catkin_LIBRARIES})
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(multirov_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})

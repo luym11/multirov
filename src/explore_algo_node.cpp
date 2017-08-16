@@ -1,11 +1,14 @@
 #include "multirov/explore_algo_node.hpp"
 
-explore_algo ex; 
-coveragemap c(200, 200); 
-int done_flag = 0;
-std_msgs::Int8 d; 
+//extern void resource_location_Callback(const geometry_msgs::Point::ConstPtr& p); 
 
-Eigen::MatrixXi heatmap_update(int x, int y){
+//explore_algo_node::explore_algo_node(ros::NodeHandle& nodeHandle):nodeHandle_(nodeHandle), c(200, 200){
+explore_algo_node::explore_algo_node(ros::NodeHandle& nodeHandle):nh_1(&nodeHandle), c(200, 200){
+	resource_location_subs = nh_1->subscribe("/resource_location", 5, &explore_algo_node::resource_location_Callback, this);
+	done_flag = 0; 
+}
+
+Eigen::MatrixXi explore_algo_node::heatmap_update(int x, int y){
 	Eigen::MatrixXi _heatmap = Eigen::MatrixXi::Zero(200, 200);
 	_heatmap.block(x-3, y-3, 7, 7) = Eigen::MatrixXi::Constant(7, 7, 4); 
 	_heatmap.block(x-2, y-2, 5, 5) = Eigen::MatrixXi::Constant(5, 5, 6); 
@@ -14,7 +17,8 @@ Eigen::MatrixXi heatmap_update(int x, int y){
 	return _heatmap;
 }
 
-void resource_location_Callback(const geometry_msgs::Point::ConstPtr& p){
+
+void explore_algo_node::resource_location_Callback(const geometry_msgs::Point::ConstPtr& p){
 	geometry_msgs::Point resource_center; 
 	resource_center.x = (int)round(p->x);
 	resource_center.y = (int)round(p->y);
@@ -37,11 +41,12 @@ void resource_location_Callback(const geometry_msgs::Point::ConstPtr& p){
 	ex.find_margin_utilities();
 	d.data = ex.find_new_direction();
 	std::cout << d << std::endl;
-	//go_direction_publ.publish(d);
+	go_direction_publ.publish(d);
 	
 }
 
-void agent_location_Callback(const geometry_msgs::Point::ConstPtr& p){
+
+void explore_algo_node::agent_location_Callback(const geometry_msgs::Point::ConstPtr& p){
 	std::vector<int> vec(2,1); 
 	vec[0] = (int)round(p->x); vec[1] = (int)round(p->y); 
 	int rovnumMinus1 = (int)round(p->z)-1;
@@ -84,59 +89,6 @@ void agent_location_Callback(const geometry_msgs::Point::ConstPtr& p){
 		ex.find_margin_utilities();
 		d.data = ex.find_new_direction();
 		std::cout << d << std::endl;
-		//go_direction_publ.publish(d);
+		go_direction_publ.publish(d);
 	}
-}
-
-int main(int argc, char** argv){
-	ros::init(argc, argv, "explore_algo_node");
-	ros::NodeHandle nh;
-	ros::Publisher go_direction_publ = nh.advertise<std_msgs::Int8>("/rexrov1/direction_to_go", 10);
-
-	ex.heatmap = Eigen::MatrixXi::Zero(200, 200);
-
-	if(argc != 2){
-	ROS_WARN("Warning! Didn't pass correct namespace format");
-	}else{
-		strcat(argv[1], "/agent_location"); 
-	}
-	std::cout << argv[1] << std::endl; 
-
-	// ros::Publisher go_direction_publ = nh.advertise<std_msgs::Int8>("/rexrov1/direction_to_go", 10);  
-	ros::Subscriber resource_location_subs = nh.subscribe("/resource_location", 5, resource_location_Callback);
-
-	
-
- 	ros::Subscriber my_location_subs = nh.subscribe(argv[1], 10, agent_location_Callback);
-
-
- 	// init 
-	ex.my_location.push_back(22); ex.my_location.push_back(53); 
-	std::vector<int> a2; a2.push_back(1); a2.push_back(1); 
-	std::vector<int> a3(19,29); 
-	ex.agent_locations.push_back(ex.my_location); ex.agent_locations.push_back(a2); ex.agent_locations.push_back(a3);
-
-	//init c
-	std::vector<int> vec1(2,1); 
-	c.agents.push_back(vec1); c.agents.push_back(a2); c.agents.push_back(a3);
-
-	ex.remap_heatmap(); 
-	ex.remap_coordinates(); 
-	ex.calculate_covermap(); 
-	ex.move_to_see_the_scores();
-	
-	for(int i = 0 ; i < ex.scores_at_different_directions.size(); i++){
-		std::cout<< ex.scores_at_different_directions[i] << " "; 
-	}
-	std::cout << std::endl;
-
-	ex.find_margin_utilities();
-	d.data = ex.find_new_direction();
-	std::cout << d.data << std::endl;
-	go_direction_publ.publish(d);
-
-	done_flag = 1; 
-	ros::spin();
-
-	return 0; 
 }
