@@ -26,6 +26,8 @@ void explore_algo::remap_heatmap(){
 
 void explore_algo::remap_coordinates(){
 	// init
+	nearby_agent_locations_local.clear(); 
+	agent_locations_local.clear(); 
 	std::vector<int> v(2,-1);
 	for(int i = 0; i < agent_locations.size(); i++){
 		agent_locations_local.push_back(v); 

@@ -51,7 +51,7 @@ void coveragemap::place_agents(std::vector< std::vector <int> > a){
 		printf("\n");
 	}
 	*/	
-	printf("\n");printf("\n");printf("\n");printf("\n");printf("\n");
+	printf("\n");//printf("\n");printf("\n");printf("\n");printf("\n");
 }
 
 void coveragemap::calculate_coveragemap(){
