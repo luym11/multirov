@@ -139,5 +139,5 @@ int explore_algo::find_new_direction(){
 		random_num -= p[d]; 
 		d++;
 	}
-	return d; 
+	return d-1; 
 }
