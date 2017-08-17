@@ -176,6 +176,7 @@ target_link_libraries(explore_algo_node_main ${catkin_LIBRARIES})
 
 catkin_install_python(PROGRAMS scripts/spawn_model.py
 	                       scripts/move_to_resource.py
+                         scripts/move_to_next_step.py
                       DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 # Install launch files
