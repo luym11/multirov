@@ -34,6 +34,8 @@ public:
 	ros::Publisher go_direction_publ;
 	ros::Subscriber resource_location_subs;
 	ros::Subscriber my_location_subs;
+
+	ros::Subscriber rexrov2_location_subs; 
 };
 
 #endif

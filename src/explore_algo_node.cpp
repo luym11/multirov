@@ -54,8 +54,8 @@ void explore_algo_node::agent_location_Callback(const geometry_msgs::Point::Cons
 	ex.agent_locations[rovnumMinus1][0] = vec[0]; ex.agent_locations[rovnumMinus1][1] = vec[1]; 
 	//ex.my_location[0] = vec[0]; ex.my_location[1] = vec[1];
 
-	//std::cout << "The " << rovnumMinus1 + 1 <<" agent's location is " << ex.agent_locations[rovnumMinus1][0] << " " << ex.agent_locations[rovnumMinus1][1] << ", and now we have " << ex.agent_locations.size() << " agents. "<< std::endl; 
-	//std::cout << "The 2 agent's location is " << ex.agent_locations[1][0] << " " << ex.agent_locations[1][1] << ", and now we have " << ex.agent_locations.size() << " agents. "<< std::endl; 
+	std::cout << "The " << rovnumMinus1 + 1 <<" agent's location is " << ex.agent_locations[rovnumMinus1][0] << " " << ex.agent_locations[rovnumMinus1][1] << ", and now we have " << ex.agent_locations.size() << " agents. "<< std::endl; 
+	std::cout << "The 2 agent's location is " << ex.agent_locations[1][0] << " " << ex.agent_locations[1][1] << ", and now we have " << ex.agent_locations.size() << " agents. "<< std::endl; 
 	//std::cout << "The 3 agent's location is " << ex.agent_locations[2][0] << " " << ex.agent_locations[2][1] << ", and now we have " << ex.agent_locations.size() << " agents. "<< std::endl; 
 	std::cout << "now we have " << ex.agent_locations.size() << " agents. "<< std::endl; 
 	std::cout << "c has agent size of " << c.agents.size() << std::endl; 
