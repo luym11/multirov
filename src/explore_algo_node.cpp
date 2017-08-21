@@ -67,14 +67,14 @@ void explore_algo_node::agent_location_Callback(const geometry_msgs::Point::Cons
 
 	for(int j = 2; j >= -2; j--){
 		for(int i = -2; i <= 2; i++){
-			if(ex.agent_locations[0][0]+i >= 0 & ex.agent_locations[0][1]+j >= 0 & ex.agent_locations[0][0]+i < c.col & ex.agent_locations[0][1]+j < c.row){
-				printf("%f ", c.covermap2(ex.agent_locations[0][0]+i, ex.agent_locations[0][1]+j)); 
+			if(ex.agent_locations[rovNum-1][0]+i >= 0 & ex.agent_locations[rovNum-1][1]+j >= 0 & ex.agent_locations[rovNum-1][0]+i < c.col & ex.agent_locations[rovNum-1][1]+j < c.row){
+				printf("%f ", c.covermap2(ex.agent_locations[rovNum-1][0]+i, ex.agent_locations[rovNum-1][1]+j)); 
 			}
 		} 
 		printf("\n");
 	}
 
-	ex.my_location = ex.agent_locations[0]; // double make sure, see line 50
+	ex.my_location = ex.agent_locations[rovNum-1]; // double make sure, see line 50
 	if(done_flag == 1){
 		ex.remap_heatmap(); 
 		ex.remap_coordinates(); 

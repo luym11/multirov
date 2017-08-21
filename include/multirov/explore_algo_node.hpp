@@ -24,6 +24,8 @@ public:
 	int done_flag;
 	std_msgs::Int8 d; 
 
+	int rovNum; 
+
 	Eigen::MatrixXi heatmap_update(int x, int y); 
 
 	void resource_location_Callback(const geometry_msgs::Point::ConstPtr& p); 
@@ -33,8 +35,8 @@ public:
 	// subs and publs
 	ros::Publisher go_direction_publ;
 	ros::Subscriber resource_location_subs;
-	ros::Subscriber my_location_subs;
-
+	
+	ros::Subscriber rexrov1_location_subs; 
 	ros::Subscriber rexrov2_location_subs; 
 };
 

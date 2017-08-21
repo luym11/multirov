@@ -44,25 +44,26 @@ int main(int argc, char** argv){
 	ROS_WARN("Warning! Didn't pass correct namespace format");
 	}else{
 		strcat(argv[1], "/agent_location"); 
+		sscanf(argv[1], "/rexrov%d", &(ex_node->rovNum) ); 
 	}
 	std::cout << argv[1] << std::endl; 
 
-	ex_node->my_location_subs = nh.subscribe(argv[1], 10, &explore_algo_node::agent_location_Callback, ex_node);
+	ex_node->rexrov1_location_subs = nh.subscribe("/rexrov1/agent_location", 10, &explore_algo_node::agent_location_Callback, ex_node);
 	ex_node->rexrov2_location_subs = nh.subscribe("/rexrov2/agent_location", 10, &explore_algo_node::agent_location_Callback, ex_node);
 
 	ex_node->go_direction_publ = nh.advertise<std_msgs::Int8>("/rexrov1/direction_to_go", 10);
 
 
  	// init 
-	ex_node->ex.my_location.push_back(0); ex_node->ex.my_location.push_back(0); 
+	std::vector<int> a1; a1.push_back(0); a1.push_back(0); 
 	std::vector<int> a2; a2.push_back(10); a2.push_back(10); 
 	// std::vector<int> a3(19,29); 
-	ex_node->ex.agent_locations.push_back(ex_node->ex.my_location); ex_node->ex.agent_locations.push_back(a2); // ex_node->ex.agent_locations.push_back(a3);
+	ex_node->ex.agent_locations.push_back(a1); ex_node->ex.agent_locations.push_back(a2); // ex_node->ex.agent_locations.push_back(a3);
 	// For we only have 2 agents now. This now has to be written by hard code
-
+	ex_node->ex.my_location.push_back(ex_node->ex.agent_locations[ex_node->rovNum-1][0]); ex_node->ex.my_location.push_back(ex_node->ex.agent_locations[ex_node->rovNum-1][1]); 
+	
 	//init c
-	std::vector<int> vec1(2,0); 
-	ex_node->c.agents.push_back(vec1); ex_node->c.agents.push_back(a2); // ex_node->c.agents.push_back(a3);
+	ex_node->c.agents.push_back(a1); ex_node->c.agents.push_back(a2); // ex_node->c.agents.push_back(a3);
 
 	ex_node->ex.remap_heatmap(); 
 	ex_node->ex.remap_coordinates(); 
