@@ -51,7 +51,7 @@ void explore_algo_node::agent_location_Callback(const geometry_msgs::Point::Cons
 	vec[0] = (int)round(p->x); vec[1] = (int)round(p->y); 
 	int rovnumMinus1 = (int)round(p->z)-1;
 	c.agents[rovnumMinus1][0] = vec[0]; c.agents[rovnumMinus1][1] = vec[1]; 
-	//ex.agent_locations[rovnumMinus1][0] = vec[0]; ex.agent_locations[rovnumMinus1][1] = vec[1]; 
+	ex.agent_locations[rovnumMinus1][0] = vec[0]; ex.agent_locations[rovnumMinus1][1] = vec[1]; 
 	//ex.my_location[0] = vec[0]; ex.my_location[1] = vec[1];
 
 	//std::cout << "The " << rovnumMinus1 + 1 <<" agent's location is " << ex.agent_locations[rovnumMinus1][0] << " " << ex.agent_locations[rovnumMinus1][1] << ", and now we have " << ex.agent_locations.size() << " agents. "<< std::endl; 
@@ -67,14 +67,14 @@ void explore_algo_node::agent_location_Callback(const geometry_msgs::Point::Cons
 
 	for(int j = 2; j >= -2; j--){
 		for(int i = -2; i <= 2; i++){
-			if(vec[0]+i >= 0 &  vec[1]+j >= 0 & vec[0]+i < c.col & vec[1]+j < c.row){
-				printf("%f ", c.covermap2(vec[0]+i, vec[1]+j)); 
+			if(ex.agent_locations[0][0]+i >= 0 & ex.agent_locations[0][1]+j >= 0 & ex.agent_locations[0][0]+i < c.col & ex.agent_locations[0][1]+j < c.row){
+				printf("%f ", c.covermap2(ex.agent_locations[0][0]+i, ex.agent_locations[0][1]+j)); 
 			}
 		} 
 		printf("\n");
 	}
 
-	ex.my_location = vec; // double make sure, see line 50
+	ex.my_location = ex.agent_locations[0]; // double make sure, see line 50
 	if(done_flag == 1){
 		ex.remap_heatmap(); 
 		ex.remap_coordinates(); 
