@@ -25,7 +25,7 @@ void agent_location_Callback(const geometry_msgs::Point::ConstPtr& p){
 				printf("%f ", c.covermap2(vec[0]+i, vec[1]+j)); 
 			}
 		} 
-		printf("\n");
+		printf("\n\n\n\n");
 	}
 }
 
@@ -65,10 +65,17 @@ int main(int argc, char** argv)
 	//printf("\n");
 
 	// just init agent list, take a space
+	/*
 	std::vector<int> vec1(2,1); 
 	for(int i = 0; i < namespaces.size(); i++){
 		c.agents.push_back(vec1);
 	} 
+	*/
+	// init it using real value
+	std::vector<int> a1(2,0); 
+	c.agents.push_back(a1); 
+	std::vector<int> a2(2, 10); 
+	c.agents.push_back(a2); 
 
 	// vector of subs does not work
 	ros::Subscriber agent_location_subs_1 = nh.subscribe( namespaces[0], 10, agent_location_Callback);
