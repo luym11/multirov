@@ -46,7 +46,7 @@ printf("%d\n", num);
   
   std::cout << ns << std::endl; 
   std::cout << pre << std::endl;
-  ros::Rate rate(0.4);
+  ros::Rate rate(0.3);
   geometry_msgs::Point agent_location_point_previousloop;
   agent_location_point_previousloop.x = -1; 
   agent_location_point_previousloop.y = -1;

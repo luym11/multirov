@@ -43,7 +43,7 @@ int main(int argc, char** argv){
 	if(argc != 2){
 	ROS_WARN("Warning! Didn't pass correct namespace format");
 	}else{
-		strcat(argv[1], "/agent_location"); 
+		strcat(argv[1], "/direction_to_go"); 
 		sscanf(argv[1], "/rexrov%d", &(ex_node->rovNum) ); 
 	}
 	std::cout << argv[1] << std::endl; 
@@ -51,7 +51,7 @@ int main(int argc, char** argv){
 	ex_node->rexrov1_location_subs = nh.subscribe("/rexrov1/agent_location", 10, &explore_algo_node::agent_location_Callback, ex_node);
 	ex_node->rexrov2_location_subs = nh.subscribe("/rexrov2/agent_location", 10, &explore_algo_node::agent_location_Callback, ex_node);
 
-	ex_node->go_direction_publ = nh.advertise<std_msgs::Int8>("/rexrov1/direction_to_go", 10);
+	ex_node->go_direction_publ = nh.advertise<std_msgs::Int8>(argv[1], 10);
 
 
  	// init 
