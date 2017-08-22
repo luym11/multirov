@@ -132,7 +132,9 @@ int explore_algo::find_new_direction(){
 	for(int i = 0; i < margin_utilities_at_different_directions.size(); i++){
 		p.push_back(exp(margin_utilities_at_different_directions[i])/Z ); 
 	}
-	std::srand((unsigned)time(NULL)); 
+	time_t returnedTime = time(NULL); 
+	std::cout << "returned value of time is " << returnedTime << std::endl; 
+	std::srand((unsigned)returnedTime); 
 	float random_num = std::rand()/double(RAND_MAX); 
 	int d; 
 	while(random_num >= 0){
