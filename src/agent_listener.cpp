@@ -46,7 +46,7 @@ printf("%d\n", num);
   
   std::cout << ns << std::endl; 
   std::cout << pre << std::endl;
-  ros::Rate rate(10.0);
+  ros::Rate rate(1.0);
   geometry_msgs::Point agent_location_point_previousloop;
   agent_location_point_previousloop.x = -1; 
   agent_location_point_previousloop.y = -1;
@@ -68,11 +68,11 @@ printf("%d\n", num);
     agent_location_point.y = transform.getOrigin().y(); 
     agent_location_point.z = (float)num; /////////////////////////////////////// Mark which rov gives the info, as z is not used anyway 
     //turtle_vel.publish(vel_msg);
-    if(not eequal(agent_location_point_previousloop, agent_location_point)){
+    //if(not eequal(agent_location_point_previousloop, agent_location_point)){
       agent_location_publ.publish(agent_location_point); 
       //ROS_INFO("x = %f y = %f z = %f", agent_location_point.x, agent_location_point.y, agent_location_point.z); 
-      agent_location_point_previousloop = agent_location_point; 
-    }
+    //  agent_location_point_previousloop = agent_location_point; 
+    //}
     rate.sleep();
   }
   return 0;
