@@ -33,7 +33,8 @@ int main(int argc, char** argv){
 	ros::init(argc, argv, "explore_algo_node");
 	ros::NodeHandle nh;
 	
-	 
+	std::srand((unsigned)time(NULL)); 
+
 	ex_node = new explore_algo_node(nh); 
 
 	//ex_node->resource_location_subs = nh.subscribe("/resource_location", 5, &explore_algo_node::resource_location_Callback, ex_node);

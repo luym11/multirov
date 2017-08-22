@@ -54,7 +54,7 @@ void explore_algo_node::agent_location_Callback(const geometry_msgs::Point::Cons
 	ex.agent_locations[rovnumMinus1][0] = vec[0]; ex.agent_locations[rovnumMinus1][1] = vec[1]; 
 	//ex.my_location[0] = vec[0]; ex.my_location[1] = vec[1];
  
-	std::cout << "Change of location happens at " << rovNum << " agent" << std::endl; 
+	std::cout << "Change of location happens at " << rovnumMinus1 + 1 << " agent" << std::endl; 
 	std::cout << "The " << "1 " <<" agent's location is " << ex.agent_locations[0][0] << " " << ex.agent_locations[0][1] << ", and now we have " << ex.agent_locations.size() << " agents. "<< std::endl; 
 	std::cout << "The 2 agent's location is " << ex.agent_locations[1][0] << " " << ex.agent_locations[1][1] << ", and now we have " << ex.agent_locations.size() << " agents. "<< std::endl; 
 	//std::cout << "The 3 agent's location is " << ex.agent_locations[2][0] << " " << ex.agent_locations[2][1] << ", and now we have " << ex.agent_locations.size() << " agents. "<< std::endl; 
@@ -76,7 +76,7 @@ void explore_algo_node::agent_location_Callback(const geometry_msgs::Point::Cons
 	}
 
 	ex.my_location = ex.agent_locations[rovNum-1]; // double make sure, see line 50
-	if(done_flag == 1){
+	if( (done_flag == 1) & ((rovnumMinus1+1)==rovNum) ){
 		ex.remap_heatmap(); 
 		ex.remap_coordinates(); 
 		ex.calculate_covermap(); 
