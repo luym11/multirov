@@ -11,6 +11,12 @@
             start_time: $(arg start_time)
           </rosparam>
     </node>
+    <node pkg="multirov"
+          type="explore_algo_node_main"
+          name="explore_algo_node_main"
+          output="screen"
+          args="/$(arg uuv_name)">
+    </node>
 </group>
 
 </launch>
