@@ -74,8 +74,8 @@ void explore_algo_node::agent_location_Callback(const geometry_msgs::Point::Cons
 		} 
 		printf("\n");
 	}
-
-	ex.my_location = ex.agent_locations[rovNum-1]; // double make sure, see line 50
+	// ex.my_location = ex.agent_locations[rovNum-1]; // double make sure, see line 50
+	ex.my_location[0] = ex.agent_locations[rovNum-1][0]; ex.my_location[1] = ex.agent_locations[rovNum-1][1];// double make sure, see line 50
 	if( (done_flag == 1) & ((rovnumMinus1+1)==rovNum) ){
 		ex.remap_heatmap(); 
 		ex.remap_coordinates(); 

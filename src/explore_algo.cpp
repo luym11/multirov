@@ -47,7 +47,8 @@ void explore_algo::calculate_covermap(){
 	coveragemap cm(5, 5); 
 	cm.agents = nearby_agent_locations_local; 
 	cm.agents.insert(cm.agents.begin(), my_location_local); 
-	// std::cout << cm.agents.size() << std::endl;
+	std::cout << "calculate_covermap: covermap has agent number: " << cm.agents.size() << std::endl;
+	std::cout << "calculate_covermap: agent_locations has size: " << agent_locations.size() << std::endl;
 	cm.set_coveragemap(); 
 /*
 	for(int j = 2; j >= -2; j--){
@@ -94,7 +95,8 @@ float explore_algo::compute_score(int x, int y, Eigen::MatrixXi h){
 	cm.agents = nearby_agent_locations_local; 
 	std::vector<int> me; me.push_back(x); me.push_back(y); 
 	cm.agents.insert(cm.agents.begin(), me); 
-	// std::cout << cm.agents.size() << std::endl;
+	std::cout << "compute_score: covermap has agent number: " << cm.agents.size() << std::endl;
+	std::cout << "compute_score: agent_locations has size: " << agent_locations.size() << std::endl;
 	cm.set_coveragemap();
 
 	Eigen::MatrixXf _nearby_covermap = Eigen::MatrixXf::Zero(5, 5); 
