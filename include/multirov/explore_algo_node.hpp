@@ -37,7 +37,8 @@ public:
 	ros::Subscriber resource_location_subs;
 	
 	ros::Subscriber rexrov1_location_subs; 
-	ros::Subscriber rexrov2_location_subs; 
+	ros::Subscriber rexrov2_location_subs;
+	ros::Subscriber rexrov3_location_subs; 
 };
 
 #endif

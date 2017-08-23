@@ -76,10 +76,14 @@ int main(int argc, char** argv)
 	c.agents.push_back(a1); 
 	std::vector<int> a2(2, 10); 
 	c.agents.push_back(a2); 
+	std::vector<int> a3(2, 20); 
+	c.agents.push_back(a3);
+	c.agents[2][1] = 10;  
 
 	// vector of subs does not work
 	ros::Subscriber agent_location_subs_1 = nh.subscribe( namespaces[0], 10, agent_location_Callback);
 	ros::Subscriber agent_location_subs_2 = nh.subscribe( namespaces[1], 10, agent_location_Callback);
+	ros::Subscriber agent_location_subs_3 = nh.subscribe( namespaces[2], 10, agent_location_Callback);
 
 	ros::spin();
 	return 0;

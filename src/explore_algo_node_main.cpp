@@ -51,6 +51,7 @@ int main(int argc, char** argv){
 
 	ex_node->rexrov1_location_subs = nh.subscribe("/rexrov1/agent_location", 10, &explore_algo_node::agent_location_Callback, ex_node);
 	ex_node->rexrov2_location_subs = nh.subscribe("/rexrov2/agent_location", 10, &explore_algo_node::agent_location_Callback, ex_node);
+	ex_node->rexrov3_location_subs = nh.subscribe("/rexrov3/agent_location", 10, &explore_algo_node::agent_location_Callback, ex_node);
 
 	ex_node->go_direction_publ = nh.advertise<std_msgs::Int8>(argv[1], 10);
 
@@ -58,13 +59,14 @@ int main(int argc, char** argv){
  	// init 
 	std::vector<int> a1; a1.push_back(0); a1.push_back(0); 
 	std::vector<int> a2; a2.push_back(10); a2.push_back(10); 
+	std::vector<int> a3; a3.push_back(20); a2.push_back(10); 
 	// std::vector<int> a3(19,29); 
-	ex_node->ex.agent_locations.push_back(a1); ex_node->ex.agent_locations.push_back(a2); // ex_node->ex.agent_locations.push_back(a3);
+	ex_node->ex.agent_locations.push_back(a1); ex_node->ex.agent_locations.push_back(a2); ex_node->ex.agent_locations.push_back(a3);
 	// For we only have 2 agents now. This now has to be written by hard code
 	ex_node->ex.my_location.push_back(ex_node->ex.agent_locations[ex_node->rovNum-1][0]); ex_node->ex.my_location.push_back(ex_node->ex.agent_locations[ex_node->rovNum-1][1]); 
 	
 	//init c
-	ex_node->c.agents.push_back(a1); ex_node->c.agents.push_back(a2); // ex_node->c.agents.push_back(a3);
+	ex_node->c.agents.push_back(a1); ex_node->c.agents.push_back(a2); ex_node->c.agents.push_back(a3);
 
 	ex_node->ex.remap_heatmap(); 
 	ex_node->ex.remap_coordinates(); 
