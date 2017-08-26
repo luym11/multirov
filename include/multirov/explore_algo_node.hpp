@@ -5,6 +5,7 @@
 #include <geometry_msgs/Point.h>
 #include <tf/transform_listener.h>
 #include <geometry_msgs/Twist.h>
+#include <geometry_msgs/TwistStamped.h>
 #include <std_msgs/String.h>
 #include <std_msgs/Int8.h>
 #include "multirov/explore_algo.hpp"
@@ -39,6 +40,9 @@ public:
 	ros::Subscriber rexrov1_location_subs; 
 	ros::Subscriber rexrov2_location_subs;
 	ros::Subscriber rexrov3_location_subs; 
+
+	ros::Subscriber current_angle_subs; 
+	void current_angle_Callback(const geometry_msgs::TwistStamped::ConstPtr& a); 
 };
 
 #endif

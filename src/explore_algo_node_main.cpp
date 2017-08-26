@@ -54,7 +54,7 @@ int main(int argc, char** argv){
 	ex_node->rexrov3_location_subs = nh.subscribe("/rexrov3/agent_location", 10, &explore_algo_node::agent_location_Callback, ex_node);
 
 	ex_node->go_direction_publ = nh.advertise<std_msgs::Int8>(argv[1], 10);
-
+	ex_node->current_angle_subs = nh.subscribe("/hydrodynamics/current_velocity", 10, &explore_algo_node::current_angle_Callback, ex_node); 
 
  	// init 
 	std::vector<int> a1; a1.push_back(0); a1.push_back(0); 

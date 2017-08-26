@@ -15,6 +15,7 @@ void explore_algo::remap_heatmap(){
 		}
 	}
 	// nearby_heatmap = heatmap.block(my_location[0] - 2, my_location[1] - 2, 5, 5); // farther than 2 to the edges
+	/*
 	printf("NEARBY HEATMAP\n");
 	for(int j = 2; j >= -2; j--){
 		for(int i = -2; i <= 2; i++){
@@ -22,6 +23,7 @@ void explore_algo::remap_heatmap(){
 		} 
 		printf("\n");
 	}
+	*/
 }
 
 void explore_algo::remap_coordinates(){
@@ -47,8 +49,8 @@ void explore_algo::calculate_covermap(){
 	coveragemap cm(5, 5); 
 	cm.agents = nearby_agent_locations_local; 
 	cm.agents.insert(cm.agents.begin(), my_location_local); 
-	std::cout << "calculate_covermap: covermap has agent number: " << cm.agents.size() << std::endl;
-	std::cout << "calculate_covermap: agent_locations has size: " << agent_locations.size() << std::endl;
+	// std::cout << "calculate_covermap: covermap has agent number: " << cm.agents.size() << std::endl;
+	// std::cout << "calculate_covermap: agent_locations has size: " << agent_locations.size() << std::endl;
 	cm.set_coveragemap(); 
 /*
 	for(int j = 2; j >= -2; j--){
@@ -67,6 +69,7 @@ void explore_algo::calculate_covermap(){
 			}
 		}
 	}
+	/*
 	printf("NEARBY COVERMAP\n");
 	for(int j = 2; j >= -2; j--){
 		for(int i = -2; i <= 2; i++){
@@ -74,6 +77,7 @@ void explore_algo::calculate_covermap(){
 		} 
 		printf("\n");
 	}
+	*/
 }  
 
 void explore_algo::move_to_see_the_scores(){
@@ -95,8 +99,8 @@ float explore_algo::compute_score(int x, int y, Eigen::MatrixXi h){
 	cm.agents = nearby_agent_locations_local; 
 	std::vector<int> me; me.push_back(x); me.push_back(y); 
 	cm.agents.insert(cm.agents.begin(), me); 
-	std::cout << "compute_score: covermap has agent number: " << cm.agents.size() << std::endl;
-	std::cout << "compute_score: agent_locations has size: " << agent_locations.size() << std::endl;
+	//std::cout << "compute_score: covermap has agent number: " << cm.agents.size() << std::endl;
+	//std::cout << "compute_score: agent_locations has size: " << agent_locations.size() << std::endl;
 	cm.set_coveragemap();
 
 	Eigen::MatrixXf _nearby_covermap = Eigen::MatrixXf::Zero(5, 5); 
@@ -107,6 +111,7 @@ float explore_algo::compute_score(int x, int y, Eigen::MatrixXi h){
 			}
 		}
 	}
+	/*
 	printf("DIFFERENT POSITION COVERMAPS for %d %d\n", x, y);
 	for(int j = 2; j >= -2; j--){
 		for(int i = -2; i <= 2; i++){
@@ -114,6 +119,7 @@ float explore_algo::compute_score(int x, int y, Eigen::MatrixXi h){
 		} 
 		printf("\n");
 	}
+	*/
 	Eigen::MatrixXf h_f = h.cast<float>();
 	return (_nearby_covermap.cwiseProduct(h_f)).sum(); 
 }
@@ -123,6 +129,63 @@ void explore_algo::find_margin_utilities(){
 	for(int i = 0; i < scores_at_different_directions.size(); i++){
 		margin_utilities_at_different_directions.push_back(scores_at_different_directions[i] - scores_at_different_directions[4]); 
 	}
+	//for(int i = 0; i < scores_at_different_directions.size(); i++){
+	// use 0.2 to be parameter for current
+		if(currentAngle.x > 0){
+			margin_utilities_at_different_directions[8] *= (1+currentAngle.x*0.2); 
+			if(eequal(margin_utilities_at_different_directions[8], 0) ) margin_utilities_at_different_directions[8] += 2*currentAngle.x; 
+			margin_utilities_at_different_directions[7] *= (1+currentAngle.x*0.2); 
+			if(eequal(margin_utilities_at_different_directions[7], 0) ) margin_utilities_at_different_directions[7] += 2*currentAngle.x; 
+			margin_utilities_at_different_directions[6] *= (1+currentAngle.x*0.2); 
+			if(eequal(margin_utilities_at_different_directions[6], 0) ) margin_utilities_at_different_directions[6] += 2*currentAngle.x;
+			margin_utilities_at_different_directions[2] *= (1-currentAngle.x*0.2);
+			margin_utilities_at_different_directions[1] *= (1-currentAngle.x*0.2); 
+			margin_utilities_at_different_directions[0] *= (1-currentAngle.x*0.2);
+		}else if(currentAngle.x < 0){
+			margin_utilities_at_different_directions[8] *= (1+currentAngle.x*0.2);
+			margin_utilities_at_different_directions[7] *= (1+currentAngle.x*0.2); 
+			margin_utilities_at_different_directions[6] *= (1+currentAngle.x*0.2);
+			margin_utilities_at_different_directions[2] *= (1-currentAngle.x*0.2); 
+			if(eequal(margin_utilities_at_different_directions[2], 0) ) margin_utilities_at_different_directions[2] -= 2*currentAngle.x; 
+			margin_utilities_at_different_directions[1] *= (1-currentAngle.x*0.2); 
+			if(eequal(margin_utilities_at_different_directions[1], 0) )margin_utilities_at_different_directions[1] -= 2*currentAngle.x;
+			margin_utilities_at_different_directions[0] *= (1-currentAngle.x*0.2); 
+			if(eequal(margin_utilities_at_different_directions[0], 0) ) margin_utilities_at_different_directions[0] -= 2*currentAngle.x;
+		}else{
+
+		}
+		if(currentAngle.y > 0){
+			margin_utilities_at_different_directions[2] *= (1+currentAngle.y*0.2); 
+			if(eequal(margin_utilities_at_different_directions[2], 0) ) margin_utilities_at_different_directions[2] += 2*currentAngle.y;
+			margin_utilities_at_different_directions[5] *= (1+currentAngle.y*0.2); 
+			if(eequal(margin_utilities_at_different_directions[5], 0) ) margin_utilities_at_different_directions[5] += 2*currentAngle.y;
+			margin_utilities_at_different_directions[8] *= (1+currentAngle.y*0.2); 
+			if(eequal(margin_utilities_at_different_directions[8], 0) ) margin_utilities_at_different_directions[8] += 2*currentAngle.y;
+			margin_utilities_at_different_directions[0] *= (1-currentAngle.y*0.2);
+			margin_utilities_at_different_directions[3] *= (1-currentAngle.y*0.2); 
+			margin_utilities_at_different_directions[6] *= (1-currentAngle.y*0.2);
+		}else if(currentAngle.y < 0){
+			margin_utilities_at_different_directions[2] *= (1+currentAngle.y*0.2); 
+			margin_utilities_at_different_directions[5] *= (1+currentAngle.y*0.2); 
+			margin_utilities_at_different_directions[8] *= (1+currentAngle.y*0.2);
+			margin_utilities_at_different_directions[0] *= (1-currentAngle.y*0.2); 
+			if(eequal(margin_utilities_at_different_directions[0], 0) ) margin_utilities_at_different_directions[0] -= 2*currentAngle.y;
+			margin_utilities_at_different_directions[3] *= (1-currentAngle.y*0.2); 
+			if(eequal(margin_utilities_at_different_directions[3], 0) ) margin_utilities_at_different_directions[3] -= 2*currentAngle.y;
+			margin_utilities_at_different_directions[6] *= (1-currentAngle.y*0.2); 
+			if(eequal(margin_utilities_at_different_directions[6], 0) ) margin_utilities_at_different_directions[6] -= 2*currentAngle.y;
+		}else{
+
+		}
+	//}
+}
+
+bool explore_algo::eequal(float a, float b){
+  if((int)round(a*100) == (int)round(b*100) ){
+    return true; 
+  }else{
+    return false;
+  }
 }
 
 int explore_algo::find_new_direction(){
@@ -142,5 +205,13 @@ int explore_algo::find_new_direction(){
 		random_num -= p[d]; 
 		d++;
 	}
-	return d-1; 
+	d--; 
+
+	// prevent from bumping to the wall. 
+	if(my_location[0] < 1 & (d==0 | d==1 | d==2)) d=7;
+	if(my_location[0] > 199 & (d==8 | d==7 | d==6)) d=1;
+	if(my_location[1] < 1 & (d==0 | d==3 | d==6)) d=5;
+	if(my_location[1] > 199 & (d==0 | d==1 | d==2)) d=3;
+
+	return d; 
 }

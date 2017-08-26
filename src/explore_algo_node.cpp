@@ -28,20 +28,22 @@ void explore_algo_node::resource_location_Callback(const geometry_msgs::Point::C
 	// Eigen::IOFormat HeavyFmt(Eigen::FullPrecision, 0, ", ", ";\n", "[", "]", "[", "]");
 	// std::cout << _heatmap.block((int)round(p->x)-4, (int)round(p->y)-4,9,9).format(HeavyFmt) << std::endl;
 	
+	
 	ex.remap_heatmap(); 
 	ex.remap_coordinates(); 
 	ex.calculate_covermap(); 
 	ex.move_to_see_the_scores();
 	
+	/*
 	for(int i = 0 ; i < ex.scores_at_different_directions.size(); i++){
 		std::cout<< ex.scores_at_different_directions[i] << " "; 
 	}
 	std::cout << std::endl;
-
+	*/
 	ex.find_margin_utilities();
 	d.data = ex.find_new_direction();
-	std::cout << d << std::endl;
-	go_direction_publ.publish(d);
+	//std::cout <<"resource publish: "<< d << std::endl;
+	//go_direction_publ.publish(d);
 	
 }
 
@@ -63,7 +65,7 @@ void explore_algo_node::agent_location_Callback(const geometry_msgs::Point::Cons
 	// std::cout << "nearby_agent_local has agent size of " << ex.nearby_agent_locations_local.size() << std::endl; 
 	// set overall covermap by agent location list
 	c.set_coveragemap(); 
-
+	/*
 	std::cout << "print nearby part of the covermap" << std::endl;
 
 	for(int j = 2; j >= -2; j--){
@@ -74,6 +76,7 @@ void explore_algo_node::agent_location_Callback(const geometry_msgs::Point::Cons
 		} 
 		printf("\n");
 	}
+	*/
 	// ex.my_location = ex.agent_locations[rovNum-1]; // double make sure, see line 50
 	ex.my_location[0] = ex.agent_locations[rovNum-1][0]; ex.my_location[1] = ex.agent_locations[rovNum-1][1];// double make sure, see line 50
 	if( (done_flag == 1) & ((rovnumMinus1+1)==rovNum) ){
@@ -82,14 +85,27 @@ void explore_algo_node::agent_location_Callback(const geometry_msgs::Point::Cons
 		ex.calculate_covermap(); 
 		ex.move_to_see_the_scores();
 		
+		std::cout << "scores" << std::endl; 
 		for(int i = 0 ; i < ex.scores_at_different_directions.size(); i++){
-			std::cout<< ex.scores_at_different_directions[i] << " "; 
+			std::cout << ex.scores_at_different_directions[i] << " "; 
 		}
 		std::cout << std::endl;
 
 		ex.find_margin_utilities();
+
+		std::cout << "margins" << std::endl; 
+		for(int i = 0 ; i < ex.scores_at_different_directions.size(); i++){
+			std::cout<< ex.margin_utilities_at_different_directions[i] << " "; 
+		}
+		std::cout << std::endl;
+
 		d.data = ex.find_new_direction();
-		std::cout << d << std::endl;
+		std::cout << "agent publish "<< d << std::endl;
 		go_direction_publ.publish(d);
 	}
+}
+
+void explore_algo_node::current_angle_Callback(const geometry_msgs::TwistStamped::ConstPtr& a){
+	// std::cout << "current angle x is " << a->twist.angular.x << ", current angle y is " << a->twist.angular.y << ", current angle z is " << a->twist.angular.z << std::endl; 
+	ex.currentAngle = a->twist.linear; 
 }

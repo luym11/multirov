@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <std_msgs/Float64.h>
+#include <geometry_msgs/Vector3.h>
 #include "multirov/coveragemap.hpp"
 
 class explore_algo{
@@ -52,6 +54,10 @@ public:
 	*/
 	std::vector< std::vector<int> > nearby_agent_locations_local; 
 
+	geometry_msgs::Vector3 currentAngle; 
+
+	// compare
+	bool eequal(float a, float b);
 private:
 	Eigen::MatrixXf nearby_covermap; 
 	Eigen::MatrixXi nearby_heatmap; 
