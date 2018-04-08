@@ -215,10 +215,10 @@ int explore_algo::find_new_direction(){
 	}
 
 	// prevent from bumping to the wall. 
-	if(my_location[0] < 1 & (d==0 | d==1 | d==2)) d=7;
-	if(my_location[0] > 199 & (d==8 | d==7 | d==6)) d=1;
-	if(my_location[1] < 1 & (d==0 | d==3 | d==6)) d=5;
-	if(my_location[1] > 199 & (d==0 | d==1 | d==2)) d=3;
+	if(my_location[0] < 1 && (d==0 || d==1 || d==2)) d=7;
+	if(my_location[0] > 199 && (d==8 || d==7 || d==6)) d=1;
+	if(my_location[1] < 1 && (d==0 || d==3 || d==6)) d=5;
+	if(my_location[1] > 199 && (d==2 || d==5 || d==8)) d=3;
 
 	return d; 
 }
