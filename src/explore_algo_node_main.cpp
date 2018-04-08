@@ -57,9 +57,9 @@ int main(int argc, char** argv){
 	ex_node->current_angle_subs = nh.subscribe("/hydrodynamics/current_velocity", 10, &explore_algo_node::current_angle_Callback, ex_node); 
 
  	// init 
-	std::vector<int> a1; a1.push_back(0); a1.push_back(0); 
-	std::vector<int> a2; a2.push_back(10); a2.push_back(10); 
-	std::vector<int> a3; a3.push_back(20); a2.push_back(10); 
+	std::vector<int> a1; a1.push_back(1); a1.push_back(1); 
+	std::vector<int> a2; a2.push_back(8); a2.push_back(1); 
+	std::vector<int> a3; a3.push_back(1); a2.push_back(8); 
 	// std::vector<int> a3(19,29); 
 	ex_node->ex.agent_locations.push_back(a1); ex_node->ex.agent_locations.push_back(a2); ex_node->ex.agent_locations.push_back(a3);
 	// For we only have 2 agents now. This now has to be written by hard code
