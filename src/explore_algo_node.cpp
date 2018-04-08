@@ -100,7 +100,58 @@ void explore_algo_node::agent_location_Callback(const geometry_msgs::Point::Cons
 		std::cout << std::endl;
 
 		d.data = ex.find_new_direction();
+		std::cout << "agent proposed "<< d << std::endl;
+
+		int dx, dy; 
+	    if (d.data == 0){
+	        dx = -1;
+	        dy = -1;
+	    }
+	    else if (d.data == 1){
+	        dx = -1;
+	        dy = 0;
+	    }
+	    else if (d.data == 2){
+	        dx = -1;
+	        dy = 1;
+	    }
+	    else if (d.data == 3){
+	        dx = 0;
+	        dy = -1;
+	    }
+	    else if (d.data == 4){
+	        dx = 0;
+	        dy = 0;
+	    }
+	    else if (d.data == 5){
+	        dx = 0;
+	        dy = 1;
+	    }
+	    else if (d.data == 6){
+	        dx = 1;
+	        dy = -1;
+	    }
+	    else if (d.data == 7){
+	        dx = 1;
+	        dy = 0;
+	    }
+	    else if (d.data == 8){
+	        dx = 1;
+	        dy = 1;
+	    }
+	    else{
+	        dx = 0;
+	        dy =  0;
+	    }
+	    for (int ag = 0; ag <= 2; ag++){
+		    if(ex.agent_locations[ag][0] == (ex.my_location[0]+dx) && ex.agent_locations[ag][1] == (ex.my_location[1]+dy) ){
+		    	d.data = 4; 
+		    }
+			
+		}
 		std::cout << "agent publish "<< d << std::endl;
+		std::cout << "agent current location x = " << ex.my_location[0] << " , y = " << ex.my_location[1] << std::endl;
+		std::cout << "agent next location x = " << ex.my_location[0]+dx << " , y = " << ex.my_location[1]+dy << std::endl;
 		go_direction_publ.publish(d);
 	}
 }

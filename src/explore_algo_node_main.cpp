@@ -53,7 +53,7 @@ int main(int argc, char** argv){
 	ex_node->rexrov2_location_subs = nh.subscribe("/rexrov2/agent_location", 10, &explore_algo_node::agent_location_Callback, ex_node);
 	ex_node->rexrov3_location_subs = nh.subscribe("/rexrov3/agent_location", 10, &explore_algo_node::agent_location_Callback, ex_node);
 
-	ex_node->go_direction_publ = nh.advertise<std_msgs::Int8>(argv[1], 10);
+	ex_node->go_direction_publ = nh.advertise<std_msgs::Int8>(argv[1], 10); // direction_to_go
 	ex_node->current_angle_subs = nh.subscribe("/hydrodynamics/current_velocity", 10, &explore_algo_node::current_angle_Callback, ex_node); 
 
  	// init 
@@ -63,6 +63,8 @@ int main(int argc, char** argv){
 	// std::vector<int> a3(19,29); 
 	ex_node->ex.agent_locations.push_back(a1); ex_node->ex.agent_locations.push_back(a2); ex_node->ex.agent_locations.push_back(a3);
 	// For we only have 2 agents now. This now has to be written by hard code
+
+	// my location
 	ex_node->ex.my_location.push_back(ex_node->ex.agent_locations[ex_node->rovNum-1][0]); ex_node->ex.my_location.push_back(ex_node->ex.agent_locations[ex_node->rovNum-1][1]); 
 	
 	//init c
@@ -81,8 +83,54 @@ int main(int argc, char** argv){
 	ex_node->ex.find_margin_utilities();
 	ex_node->d.data = ex_node->ex.find_new_direction();
 	std::cout << ex_node->d.data << std::endl;
+	int dx, dy; 
+    if (ex_node->d.data == 0){
+        dx = -1;
+        dy = -1;
+    }
+    else if (ex_node->d.data == 1){
+        dx = -1;
+        dy = 0;
+    }
+    else if (ex_node->d.data == 2){
+        dx = -1;
+        dy = 1;
+    }
+    else if (ex_node->d.data == 3){
+        dx = 0;
+        dy = -1;
+    }
+    else if (ex_node->d.data == 4){
+        dx = 0;
+        dy = 0;
+    }
+    else if (ex_node->d.data == 5){
+        dx = 0;
+        dy = 1;
+    }
+    else if (ex_node->d.data == 6){
+        dx = 1;
+        dy = -1;
+    }
+    else if (ex_node->d.data == 7){
+        dx = 1;
+        dy = 0;
+    }
+    else if (ex_node->d.data == 8){
+        dx = 1;
+        dy = 1;
+    }
+    else{
+        dx = 0;
+        dy =  0;
+    }
+    for (int ag = 0; ag <= 2; ag++){
+	    if(ex_node->ex.agent_locations[ag][0] == ex_node->ex.my_location[0]+dx && ex_node->ex.agent_locations[ag][1] == ex_node->ex.my_location[1]+dy){
+	    	ex_node->d.data = 4; 
+	    }
+		
+	}
 	ex_node->go_direction_publ.publish(ex_node->d);
-
 	ex_node->done_flag = 1; 
 	ros::spin();
 
