@@ -99,7 +99,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>       
 	<geometry>
-          <box size="6 6 2"/>
+          <box size="1 1 1"/>
         </geometry>   
       </visual>
 <!--

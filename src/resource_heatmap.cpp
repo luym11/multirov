@@ -3,11 +3,13 @@
 
 resource_heatmap::resource_heatmap(ros::NodeHandle& nodeHandle):nodeHandle_(nodeHandle){
 	heatmap = Eigen::MatrixXi::Zero(200, 200);
+	heatmap(3,4) = 10; 
 	resource_location_subs = nodeHandle.subscribe( "/resource_location", 5, &resource_heatmap::resource_location_Callback, this); 
 }
 
 void resource_heatmap::heatmap_update(int x, int y){
 	heatmap = Eigen::MatrixXi::Zero(200, 200);
+	heatmap(3,4) = 10; 
 	heatmap.block(x-3, y-3, 7, 7) = Eigen::MatrixXi::Constant(7, 7, 4); 
 	heatmap.block(x-2, y-2, 5, 5) = Eigen::MatrixXi::Constant(5, 5, 6); 
 	heatmap.block(x-1, y-1, 3, 3) = Eigen::MatrixXi::Constant(3, 3, 8); 
