@@ -10,6 +10,7 @@
 #include <std_msgs/Float64.h>
 #include <geometry_msgs/Vector3.h>
 #include "multirov/coveragemap.hpp"
+#include <random>
 
 class explore_algo{
 

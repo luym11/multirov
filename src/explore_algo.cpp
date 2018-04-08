@@ -189,23 +189,30 @@ bool explore_algo::eequal(float a, float b){
 }
 
 int explore_algo::find_new_direction(){
+
+	std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_int_distribution<> dis(0, 8);
+ 	
+ 	int random_direction; 
+    random_direction = dis(gen);
+
 	float Z; 
-	for(int i = 0; i < margin_utilities_at_different_directions.size(); i++){
-		Z = Z + exp(margin_utilities_at_different_directions[i]); 
-	}
+	// Binary log-linear learning has ONLY two options: stay or one randomly CHOSEN direction	
+	Z = exp(margin_utilities_at_different_directions[4]) + exp(margin_utilities_at_different_directions[random_direction]);
+
 	std::vector<float> p; 
-	for(int i = 0; i < margin_utilities_at_different_directions.size(); i++){
-		p.push_back(exp(margin_utilities_at_different_directions[i])/Z ); 
-	}
-	// time_t returnedTime = time(NULL); 
-	// std::cout << "returned value of time is " << (unsigned)returnedTime << std::endl; 
+	p.push_back(exp(margin_utilities_at_different_directions[4])/Z ); 
+	p.push_back(exp(margin_utilities_at_different_directions[random_direction])/Z ); 
+	
+	srand(time(NULL));  
 	float random_num = std::rand()/double(RAND_MAX); 
 	int d; 
-	while(random_num >= 0){
-		random_num -= p[d]; 
-		d++;
+	if(random_num < p[0]){ 
+		d = 4; // stay
+	}else{
+		d = random_direction; 
 	}
-	d--; 
 
 	// prevent from bumping to the wall. 
 	if(my_location[0] < 1 & (d==0 | d==1 | d==2)) d=7;
