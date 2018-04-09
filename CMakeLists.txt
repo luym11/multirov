@@ -147,6 +147,9 @@ include_directories(
 add_executable(resource_listener src/resource_listener.cpp)
 target_link_libraries(resource_listener ${catkin_LIBRARIES})
 
+add_executable(resource_listener_hd_node src/resource_listener_hd.cpp src/resource_listener_hd_node.cpp)
+target_link_libraries(resource_listener_hd_node ${catkin_LIBRARIES})
+
 add_executable(agent_listener src/agent_listener.cpp)
 target_link_libraries(agent_listener ${catkin_LIBRARIES})
 
