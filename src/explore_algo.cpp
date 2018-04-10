@@ -3,6 +3,7 @@
 
 explore_algo::explore_algo(){
 	my_location_local.push_back(2); my_location_local.push_back(2); // Always (2,2): don't change this unless you know what you're doing
+	// because it's a 5*5 local grid
 }
 
 void explore_algo::remap_heatmap(){

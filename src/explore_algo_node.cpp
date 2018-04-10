@@ -10,7 +10,11 @@ explore_algo_node::explore_algo_node(ros::NodeHandle& nodeHandle):nh_1(&nodeHand
 
 Eigen::MatrixXi explore_algo_node::heatmap_update(int x, int y){
 	Eigen::MatrixXi _heatmap = Eigen::MatrixXi::Zero(200, 200);
-	_heatmap.block(x-3, y-3, 7, 7) = Eigen::MatrixXi::Constant(7, 7, 4); 
+	int a = 3; 
+	int b = 4;
+	_heatmap.block(a-1, b-1, 3, 3) = Eigen::MatrixXi::Constant(3, 3, 8); 
+	_heatmap(a,b) = 10; 
+	// _heatmap.block(x-3, y-3, 7, 7) = Eigen::MatrixXi::Constant(7, 7, 4); 
 	_heatmap.block(x-2, y-2, 5, 5) = Eigen::MatrixXi::Constant(5, 5, 6); 
 	_heatmap.block(x-1, y-1, 3, 3) = Eigen::MatrixXi::Constant(3, 3, 8); 
 	_heatmap(x, y) = 10;
