@@ -14,6 +14,11 @@ public:
 	geometry_msgs::Point rov2_location_point;
 	geometry_msgs::Point rov3_location_point;
 
+	geometry_msgs::Point origin_location_point_r; 
+	geometry_msgs::Point x_location_point_r;
+	geometry_msgs::Point rov1_location_point_r;
+	geometry_msgs::Point rov2_location_point_r;
+	geometry_msgs::Point rov3_location_point_r;
 
   	location_bridge(ros::NodeHandle& nodeHandle);
 

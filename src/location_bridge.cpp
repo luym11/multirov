@@ -59,11 +59,27 @@ void location_bridge::subsCallback(const apriltags2_ros::AprilTagDetectionArray:
 			}
 		}
 	}
-	if(flag_0) origin_location_publ.publish(origin_location_point); 
-	if(flag_1) rov1_location_publ.publish(rov1_location_point); 
-	if(flag_2) rov2_location_publ.publish(rov2_location_point); 
-	if(flag_3) rov3_location_publ.publish(rov3_location_point); 
-	if(flag_4) x_location_publ.publish(x_location_point); 
+
+	// calculate remapped points
+	float d;
+	d = 0; 
+	if(flag_0 && flag_1){
+		d = ( x_location_point.x - origin_location_point.x )/10; 
+		rov1_location_point_r.x = ( rov1_location_point.x - origin_location_point.x )/d;
+		rov1_location_point_r.y = ( rov1_location_point.y - origin_location_point.y )/d;
+		rov2_location_point_r.x = ( rov2_location_point.x - origin_location_point.x )/d;
+		rov2_location_point_r.y = ( rov2_location_point.y - origin_location_point.y )/d;
+		rov3_location_point_r.x = ( rov3_location_point.x - origin_location_point.x )/d;
+		rov3_location_point_r.y = ( rov3_location_point.y - origin_location_point.y )/d;
+	}else{
+		return; 
+	}
+
+	//if(flag_0) origin_location_publ.publish(origin_location_point); 
+	if(flag_1) rov1_location_publ.publish(rov1_location_point_r); 
+	if(flag_2) rov2_location_publ.publish(rov2_location_point_r); 
+	if(flag_3) rov3_location_publ.publish(rov3_location_point_r); 
+	//if(flag_4) x_location_publ.publish(x_location_point); 
 	// std::cout << p->detections[1].pose.pose.pose.position.x << std::endl; 
 
 	/*id
