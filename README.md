@@ -5,7 +5,7 @@ Simulation software architecture
 ![simu_archi](simulation_archi.png)
 
 Simulation running scene
-![simu_scene](simulation_scene)
+![simu_scene](simulation_scene.png)
 
 Hardware implementation architecture
 ![hard_archi](hardware_archi.png)
